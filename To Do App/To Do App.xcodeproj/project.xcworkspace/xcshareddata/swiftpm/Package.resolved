@@ -1,0 +1,32 @@
+{
+  "pins" : [
+    {
+      "identity" : "nimbus-core-binaries",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/ZupIT/nimbus-core-binaries.git",
+      "state" : {
+        "revision" : "122067969452345a99c924aff94ee9446a798a67",
+        "version" : "1.0.0-beta.1"
+      }
+    },
+    {
+      "identity" : "nimbus-layout-swiftui",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/ZupIT/nimbus-layout-swiftui.git",
+      "state" : {
+        "revision" : "fb9076f1db5140594edfed3f8da439841de750d1",
+        "version" : "1.0.0-beta.1"
+      }
+    },
+    {
+      "identity" : "nimbus-swiftui",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/ZupIT/nimbus-swiftui.git",
+      "state" : {
+        "revision" : "b4bd2aebe9e42f00c876364b61c559237acb63e7",
+        "version" : "1.0.0-beta.1"
+      }
+    }
+  ],
+  "version" : 2
+}
