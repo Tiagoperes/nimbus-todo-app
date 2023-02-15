@@ -1,13 +1,27 @@
 package com.todoapp
 
+import androidx.compose.runtime.Composable
 import br.com.zup.nimbus.compose.Nimbus
 import br.com.zup.nimbus.compose.NimbusMode
 import br.com.zup.nimbus.compose.layout.layoutUI
+import br.com.zup.nimbus.compose.ui.NimbusComposeUILibrary
+import com.todoapp.component.AppIcon
+import com.todoapp.component.CircularButton
+import com.todoapp.component.SelectionGroup
+import com.todoapp.component.TextInput
+import com.todoapp.operation.formatDate
 
 const val BASE_URL = "http://10.0.2.2:3000"
 
+private val todoAppUI = NimbusComposeUILibrary("todoapp")
+    .addComponent("textInput") @Composable { TextInput(it) }
+    .addComponent("icon") @Composable { AppIcon(it) }
+    .addComponent("selectionGroup") @Composable { SelectionGroup(it) }
+    .addComponent("circularButton") @Composable { CircularButton(it) }
+    .addOperation("formatDate") { formatDate(it) }
+
 val nimbus = Nimbus(
     baseUrl = BASE_URL,
-    ui = listOf(layoutUI),
+    ui = listOf(layoutUI, todoAppUI),
     mode = if (BuildConfig.DEBUG) NimbusMode.Development else NimbusMode.Release,
 )
