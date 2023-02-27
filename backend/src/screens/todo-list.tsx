@@ -8,7 +8,7 @@ import { SelectionGroup } from '../components/SelectionGroup'
 import { TextInput } from '../components/TextInput'
 import { NoteSection } from '../types'
 import { Separator } from '../fragments/Separator'
-import { formatDate } from 'src/operations/format-date'
+import { formatDate } from '../operations/format-date'
 
 export const ToDoList: Screen = () => {
   const searchTerm = createState('searchTerm', '')
@@ -45,7 +45,9 @@ export const ToDoList: Screen = () => {
               <ForEach items={notes} key="date">
                 {(section) => (
                   <Column marginTop={5}>
-                    <Text weight="bold">{formatDate(section.get('date'))}</Text>
+                    <Column paddingVertical={12} paddingHorizontal={20}>
+                      <Text size={16} color="#616B76">{formatDate(section.get('date'))}</Text>
+                    </Column>
                     <Separator />
                     <ForEach items={section.get('items')} key="id">
                       {(item) => (
