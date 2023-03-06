@@ -1,4 +1,4 @@
-import { createState, NimbusJSX, State } from '@zup-it/nimbus-backend-core'
+import { createState, NimbusJSX } from '@zup-it/nimbus-backend-core'
 import { Screen, ScreenRequest } from '@zup-it/nimbus-backend-express'
 import { Column, Row, Text } from '@zup-it/nimbus-backend-layout'
 import { DatePicker } from '../components/DatePicker'
@@ -13,7 +13,7 @@ interface EditNoteScreenRequest extends ScreenRequest {
 }
 
 export const EditNote: Screen<EditNoteScreenRequest> = ({ getViewState, navigator }) => {
-  const note: State<Note> = getViewState('note') // fixme: remove explicit type, this seems to be a bug with vscode + linked package
+  const note = getViewState('note') // fixme: remove explicit type, this seems to be a bug with vscode + linked package
   const title = createState('title', note.get('title'))
   const description = createState('description', note.get('description'))
   const date = createState('date', note.get('date'))

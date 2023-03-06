@@ -9,6 +9,7 @@ let todoAppUI = NimbusSwiftUILibrary("todoapp")
   .addComponent("icon", Icon.self)
   .addComponent("selectionGroup", SelectionGroup.self)
   .addComponent("datePicker", AppDatePicker.self)
+  .addComponent("circularButton", CircularButton.self)
   .addComponent("button", AppButton.self)
   .addOperation("formatDate", FormatDate.self)
 
