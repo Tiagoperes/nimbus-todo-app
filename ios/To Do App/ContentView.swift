@@ -8,6 +8,7 @@ let todoAppUI = NimbusSwiftUILibrary("todoapp")
   .addComponent("textInput", TextInput.self)
   .addComponent("icon", Icon.self)
   .addComponent("selectionGroup", SelectionGroup.self)
+  .addComponent("circularButton", CircularButton.self)
   .addOperation("formatDate", FormatDate.self)
 
 struct ContentView: View {

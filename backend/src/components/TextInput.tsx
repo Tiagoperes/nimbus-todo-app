@@ -6,7 +6,6 @@ interface Props {
   iconRight?: Expression<string>,
   value?: Expression<string>,
   color?: Expression<string>,
-  header?: Expression<boolean>,
   onChange: (value: State<string>) => Actions,
 }
 
