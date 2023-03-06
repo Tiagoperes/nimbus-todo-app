@@ -16,6 +16,7 @@ fun TextInput(
     value: String? = null,
     onChange: (value: String) -> Unit,
     color: Color? = null,
+    header: Boolean? = null,
 ) {
     val textFieldColor = color ?: Color.DarkGray
     TextField(
@@ -23,6 +24,7 @@ fun TextInput(
         onValueChange = onChange,
         label = { Text(label) },
         modifier = Modifier.fillMaxWidth(),
+        singleLine = header == true,
         colors = TextFieldDefaults.textFieldColors(
             backgroundColor = Color.Transparent,
             textColor = textFieldColor,

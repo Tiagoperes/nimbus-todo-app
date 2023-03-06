@@ -1,16 +1,30 @@
-import { createState, NimbusJSX, If, Then, Else, ForEach } from '@zup-it/nimbus-backend-core'
+import { createState, NimbusJSX, If, Then, Else, ForEach, State, contains, lowercase, or, eq, not, and } from '@zup-it/nimbus-backend-core'
 import { sendRequest, log } from '@zup-it/nimbus-backend-core/actions'
 import { Screen } from '@zup-it/nimbus-backend-express'
-import { Lifecycle, Text, Column, Row, ScreenComponent } from '@zup-it/nimbus-backend-layout'
+import { Lifecycle, Text, Column, Row, ScreenComponent, ScrollView } from '@zup-it/nimbus-backend-layout'
 import { NoteCard } from '../fragments/NoteCard'
 import { Icon } from '../components/Icon'
 import { SelectionGroup } from '../components/SelectionGroup'
 import { TextInput } from '../components/TextInput'
-import { NoteSection } from '../types'
+import { Note, NoteSection } from '../types'
 import { Separator } from '../fragments/Separator'
 import { formatDate } from '../operations/format-date'
+import { EditNote } from '../screens/edit-note'
 
-export const ToDoList: Screen = () => {
+function shouldRender(note: State<Note>, searchTerm: State<string>, doneFilter: State<'All' | 'To do' | 'Done'>) {
+  const lowerSearchTerm = lowercase(searchTerm)
+  const lowerTitle = lowercase(note.get('title'))
+  const lowerDescription = lowercase(note.get('description'))
+  const titleMatches = contains(lowerTitle, lowerSearchTerm)
+  const descriptionMatches = contains(lowerDescription, lowerSearchTerm)
+  const matchesText = or(titleMatches, descriptionMatches)
+  const matchesDone = and(eq(doneFilter, 'Done'), note.get('isDone'))
+  const matchesToDo = and(eq(doneFilter, 'To do'), not(note.get('isDone')))
+  const matchesDoneFilter = or(eq(doneFilter, 'All'), matchesDone, matchesToDo)
+  return and(matchesDoneFilter, matchesText)
+}
+
+export const ToDoList: Screen = ({ navigator }) => {
   const searchTerm = createState('searchTerm', '')
   const doneFilter = createState<'All' | 'To do' | 'Done'>('doneFilter', 'All')
   const isLoading = createState('isLoading', true)
@@ -41,25 +55,28 @@ export const ToDoList: Screen = () => {
           <Else>
             <Column height="expand" width="expand" backgroundColor="#F1F3F5">
               {header}
-              <Separator />
-              <ForEach items={notes} key="date">
-                {(section) => (
-                  <Column marginTop={5}>
-                    <Column paddingVertical={12} paddingHorizontal={20}>
-                      <Text size={16} color="#616B76">{formatDate(section.get('date'))}</Text>
+              <ScrollView>
+                <ForEach items={notes} key="date">
+                  {(section) => (
+                    <Column marginTop={5}>
+                      <Column paddingVertical={12} paddingHorizontal={20}>
+                        <Text size={16} color="#616B76">{formatDate(section.get('date'))}</Text>
+                      </Column>
+                      <Separator />
+                      <ForEach items={section.get('items')} key="id">
+                        {(item) => (
+                          <If condition={shouldRender(item, searchTerm, doneFilter)}>
+                            <Then>
+                              <NoteCard value={item} onShowEditModal={navigator.present(EditNote, { state: { note: item } })} />
+                              <Separator />
+                            </Then>
+                          </If>
+                        )}
+                      </ForEach>
                     </Column>
-                    <Separator />
-                    <ForEach items={section.get('items')} key="id">
-                      {(item) => (
-                        <>
-                          <NoteCard value={item} />
-                          <Separator />
-                        </>
-                      )}
-                    </ForEach>
-                  </Column>
-                )}
-              </ForEach>
+                  )}
+                </ForEach>
+              </ScrollView>
             </Column>
           </Else>
         </If>

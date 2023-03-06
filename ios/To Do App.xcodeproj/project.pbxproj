@@ -20,6 +20,8 @@
 		AFA255C629943304007349F1 /* To_Do_AppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA255C529943304007349F1 /* To_Do_AppUITests.swift */; };
 		AFA255C829943304007349F1 /* To_Do_AppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA255C729943304007349F1 /* To_Do_AppUITestsLaunchTests.swift */; };
 		AFA255D629943571007349F1 /* NimbusLayoutSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = AFA255D529943571007349F1 /* NimbusLayoutSwiftUI */; };
+		AFF8B98829B626C8009DEAE4 /* DatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFF8B98729B626C8009DEAE4 /* DatePicker.swift */; };
+		AFF8B98A29B626F6009DEAE4 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFF8B98929B626F6009DEAE4 /* Button.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +57,8 @@
 		AFA255C129943304007349F1 /* To Do AppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "To Do AppUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AFA255C529943304007349F1 /* To_Do_AppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = To_Do_AppUITests.swift; sourceTree = "<group>"; };
 		AFA255C729943304007349F1 /* To_Do_AppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = To_Do_AppUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		AFF8B98729B626C8009DEAE4 /* DatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePicker.swift; sourceTree = "<group>"; };
+		AFF8B98929B626F6009DEAE4 /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +94,8 @@
 				AF22CB172996AE52002AE566 /* Icon.swift */,
 				AF22CB192996AE62002AE566 /* SelectionGroup.swift */,
 				AF22CB1B2996AE99002AE566 /* CircularButton.swift */,
+				AFF8B98729B626C8009DEAE4 /* DatePicker.swift */,
+				AFF8B98929B626F6009DEAE4 /* Button.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -303,6 +309,8 @@
 				AFA255AB29943302007349F1 /* To_Do_AppApp.swift in Sources */,
 				AF22CB182996AE52002AE566 /* Icon.swift in Sources */,
 				AF22CB1329958A04002AE566 /* TextInput.swift in Sources */,
+				AFF8B98A29B626F6009DEAE4 /* Button.swift in Sources */,
+				AFF8B98829B626C8009DEAE4 /* DatePicker.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
