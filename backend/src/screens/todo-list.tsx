@@ -11,6 +11,7 @@ import { Separator } from '../fragments/Separator'
 import { formatDate } from '../operations/format-date'
 import { EditNote } from '../screens/edit-note'
 import { CircularButton } from '../components/CircularButton'
+import { todoAPIKey, todoAPIUrl } from '../constants'
 
 function shouldRender(note: State<Note>, searchTerm: State<string>, doneFilter: State<'All' | 'To do' | 'Done'>) {
   const lowerSearchTerm = lowercase(searchTerm)
@@ -42,7 +43,8 @@ export const ToDoList: Screen = ({ navigator }) => {
   const notes = createState<NoteSection[]>('notes', [])
 
   const loadItems = sendRequest<NoteSection[]>({
-    url: "https://gist.githubusercontent.com/Tiagoperes/3888902b98494708202fa05569444451/raw/dbc705192e2f87233da2f1eec35936aef8125545/todo.json",
+    url: `${todoAPIUrl}/notes`,
+    headers: { key: todoAPIKey() },
     onSuccess: response => notes.set(response.get('data')),
     onError: response => log({ level: 'error', message: response.get('message') }),
     onFinish: isLoading.set(false),

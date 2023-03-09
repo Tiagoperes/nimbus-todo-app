@@ -4,6 +4,9 @@ import cors from 'cors'
 import { NimbusApp } from '@zup-it/nimbus-backend-express'
 import configs from '../nimbus-ts.json'
 import { routes } from './screens'
+import * as dotenv from 'dotenv'
+
+dotenv.config()
 
 const expressApp = express()
 expressApp.use(cors()).use(express.json())
