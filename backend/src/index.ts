@@ -1,4 +1,3 @@
-
 import express from 'express'
 import cors from 'cors'
 import { NimbusApp } from '@zup-it/nimbus-backend-express'

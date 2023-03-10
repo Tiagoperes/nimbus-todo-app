@@ -6,9 +6,10 @@ import { Note } from '../types'
 interface Props {
   value: State<Note>,
   onShowEditModal: Actions,
+  onRemove: Actions,
 }
 
-export const NoteCard: FC<Props> = ({ value, onShowEditModal }) => (
+export const NoteCard: FC<Props> = ({ value, onShowEditModal, onRemove }) => (
   <Row crossAxisAlignment="center" paddingVertical={12} paddingHorizontal={20} backgroundColor="#FFFFFF" minHeight={60}>
     <Touchable onPress={value.get('isDone').set(not(value.get('isDone')))}>
       <Column
@@ -30,6 +31,8 @@ export const NoteCard: FC<Props> = ({ value, onShowEditModal }) => (
         </If>
       </Column>
     </Touchable>
-    <Icon name="delete" size={20} color="#F00000" />
+    <Touchable onPress={onRemove}>
+      <Icon name="delete" size={20} color="#F00000" />
+    </Touchable>
   </Row>
 )

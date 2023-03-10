@@ -1,4 +1,4 @@
-import { createState, NimbusJSX, If, Then, Else, ForEach, State, contains, lowercase, or, eq, not, and } from '@zup-it/nimbus-backend-core'
+import { createState, NimbusJSX, If, Then, Else, ForEach, State, contains, lowercase, or, eq, not, and, Expression } from '@zup-it/nimbus-backend-core'
 import { sendRequest, log } from '@zup-it/nimbus-backend-core/actions'
 import { Screen } from '@zup-it/nimbus-backend-express'
 import { Lifecycle, Text, Column, Row, ScreenComponent, ScrollView, Stack, Positioned } from '@zup-it/nimbus-backend-layout'
@@ -50,6 +50,14 @@ export const ToDoList: Screen = ({ navigator }) => {
     onFinish: isLoading.set(false),
   })
 
+  const removeNote = (id: Expression<number>) => sendRequest<NoteSection[]>({
+    url: `${todoAPIUrl}/notes/${id}`,
+    method: 'Delete',
+    headers: { key: todoAPIKey() },
+    onSuccess: response => notes.set(response.get('data')),
+    onError: response => log({ level: 'error', message: response.get('message') }),
+  })
+
   const header = (
     <Row backgroundColor="#5F72C0" crossAxisAlignment="center" paddingHorizontal={20} height={65}>
       <Icon name="search" color="#FFFFFF" size={28} />
@@ -73,7 +81,14 @@ export const ToDoList: Screen = ({ navigator }) => {
               {(item) => (
                 <If condition={shouldRender(item, searchTerm, doneFilter)}>
                   <Then>
-                    <NoteCard value={item} onShowEditModal={navigator.present(EditNote, { state: { note: item } })} />
+                    <NoteCard
+                      value={item}
+                      onRemove={removeNote(item.get('id'))}
+                      onShowEditModal={navigator.present(EditNote, {
+                        state: { note: item },
+                        events: { onSaveNote: updatedNotes => notes.set(updatedNotes) },
+                      })}
+                    />
                     <Separator />
                   </Then>
                 </If>
@@ -97,10 +112,7 @@ export const ToDoList: Screen = ({ navigator }) => {
                 {body}
               </Positioned>
               <Positioned alignment="bottomEnd" margin={28}>
-                <CircularButton
-                  icon="plus"
-                  onPress={navigator.present(EditNote, { state: { note: emptyNote() } })}
-                />
+                <CircularButton icon="plus" onPress={navigator.present(EditNote, { state: { note: emptyNote() } })} />
               </Positioned>
             </Stack>
           </Else>
