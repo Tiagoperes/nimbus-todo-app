@@ -26,7 +26,7 @@ fun DatePicker(
         update = { views ->
             if (firstRender) views.date = fromUTC(value ?: System.currentTimeMillis())
             views.setOnDateChangeListener { _, year, month, day ->
-                val date = GregorianCalendar(year, month - 1, day).time
+                val date = GregorianCalendar(year, month, day).time
                 onChange(toUTC(date.time))
             }
             setFirstRender(false)

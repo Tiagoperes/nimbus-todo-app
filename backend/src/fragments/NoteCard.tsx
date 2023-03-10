@@ -7,11 +7,12 @@ interface Props {
   value: State<Note>,
   onShowEditModal: Actions,
   onRemove: Actions,
+  onToggleDoneStatus: Actions,
 }
 
-export const NoteCard: FC<Props> = ({ value, onShowEditModal, onRemove }) => (
+export const NoteCard: FC<Props> = ({ value, onShowEditModal, onRemove, onToggleDoneStatus }) => (
   <Row crossAxisAlignment="center" paddingVertical={12} paddingHorizontal={20} backgroundColor="#FFFFFF" minHeight={60}>
-    <Touchable onPress={value.get('isDone').set(not(value.get('isDone')))}>
+    <Touchable onPress={onToggleDoneStatus}>
       <Column
         borderColor={condition(value.get('isDone'), '#5F7260', '#E0E4E9')}
         backgroundColor={condition(value.get('isDone'), '#CDD3EB', '#FFFFFF')}

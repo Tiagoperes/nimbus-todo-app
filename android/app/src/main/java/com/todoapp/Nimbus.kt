@@ -13,7 +13,7 @@ import com.todoapp.component.SelectionGroup
 import com.todoapp.component.TextInput
 import com.todoapp.operation.formatDate
 
-const val BASE_URL = "http://10.0.2.2:3000"
+const val BASE_URL = "http://192.168.15.35:3000"
 
 private val todoAppUI = NimbusComposeUILibrary("todoapp")
     .addComponent("textInput") @Composable { TextInput(it) }

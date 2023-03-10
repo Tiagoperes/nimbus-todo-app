@@ -11,7 +11,7 @@ import { Separator } from '../fragments/Separator'
 import { formatDate } from '../operations/format-date'
 import { EditNote } from '../screens/edit-note'
 import { CircularButton } from '../components/CircularButton'
-import { todoAPIKey, todoAPIUrl } from '../constants'
+import { emptyNoteId, todoAPIKey, todoAPIUrl } from '../constants'
 
 function shouldRender(note: State<Note>, searchTerm: State<string>, doneFilter: State<'All' | 'To do' | 'Done'>) {
   const lowerSearchTerm = lowercase(searchTerm)
@@ -28,8 +28,8 @@ function shouldRender(note: State<Note>, searchTerm: State<string>, doneFilter: 
 
 function emptyNote(): Note {
   return {
-    id: 0,
-    date: Date.now(),
+    id: emptyNoteId,
+    date: new Date().setUTCHours(0, 0, 0, 0),
     title: '',
     description: '',
     isDone: false,
@@ -58,6 +58,16 @@ export const ToDoList: Screen = ({ navigator }) => {
     onError: response => log({ level: 'error', message: response.get('message') }),
   })
 
+  const toggleDoneStatus = (note: State<Note>) => [
+    note.get('isDone').set(not(note.get('isDone'))),
+    sendRequest({
+      url: `${todoAPIUrl}/notes`,
+      headers: { key: todoAPIKey() },
+      method: 'Put',
+      data: note,
+    })
+  ]
+
   const header = (
     <Row backgroundColor="#5F72C0" crossAxisAlignment="center" paddingHorizontal={20} height={65}>
       <Icon name="search" color="#FFFFFF" size={28} />
@@ -84,6 +94,7 @@ export const ToDoList: Screen = ({ navigator }) => {
                     <NoteCard
                       value={item}
                       onRemove={removeNote(item.get('id'))}
+                      onToggleDoneStatus={toggleDoneStatus(item)}
                       onShowEditModal={navigator.present(EditNote, {
                         state: { note: item },
                         events: { onSaveNote: updatedNotes => notes.set(updatedNotes) },
@@ -112,7 +123,13 @@ export const ToDoList: Screen = ({ navigator }) => {
                 {body}
               </Positioned>
               <Positioned alignment="bottomEnd" margin={28}>
-                <CircularButton icon="plus" onPress={navigator.present(EditNote, { state: { note: emptyNote() } })} />
+                <CircularButton
+                  icon="plus"
+                  onPress={navigator.present(EditNote, {
+                    state: { note: emptyNote() },
+                    events: { onSaveNote: updatedNotes => notes.set(updatedNotes) },
+                  })}
+                />
               </Positioned>
             </Stack>
           </Else>
