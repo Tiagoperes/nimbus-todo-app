@@ -12,6 +12,8 @@ import { formatDate } from '../operations/format-date'
 import { EditNote } from '../screens/edit-note'
 import { CircularButton } from '../components/CircularButton'
 import { emptyNoteId, todoAPIKey, todoAPIUrl } from '../constants'
+import { Toast } from '../components/Toast'
+import { Spinner } from '../components/Spinner'
 
 function shouldRender(note: State<Note>, searchTerm: State<string>, doneFilter: State<'All' | 'To do' | 'Done'>) {
   const lowerSearchTerm = lowercase(searchTerm)
@@ -41,12 +43,16 @@ export const ToDoList: Screen = ({ navigator }) => {
   const doneFilter = createState<'All' | 'To do' | 'Done'>('doneFilter', 'All')
   const isLoading = createState('isLoading', true)
   const notes = createState<NoteSection[]>('notes', [])
+  const toastMessage = createState('toastMessage', '')
 
   const loadItems = sendRequest<NoteSection[]>({
     url: `${todoAPIUrl}/notes`,
     headers: { key: todoAPIKey() },
     onSuccess: response => notes.set(response.get('data')),
-    onError: response => log({ level: 'error', message: response.get('message') }),
+    onError: response => [
+      log({ level: 'error', message: response.get('message') }),
+      toastMessage.set('Unable to load the notes')
+    ],
     onFinish: isLoading.set(false),
   })
 
@@ -55,7 +61,10 @@ export const ToDoList: Screen = ({ navigator }) => {
     method: 'Delete',
     headers: { key: todoAPIKey() },
     onSuccess: response => notes.set(response.get('data')),
-    onError: response => log({ level: 'error', message: response.get('message') }),
+    onError: response => [
+      log({ level: 'error', message: response.get('message') }),
+      toastMessage.set('Error while removing note')
+    ]
   })
 
   const toggleDoneStatus = (note: State<Note>) => [
@@ -111,26 +120,43 @@ export const ToDoList: Screen = ({ navigator }) => {
     </ScrollView>
   )
 
+  const addNoteButton = (
+    <Positioned alignment="bottomEnd" margin={28}>
+      <CircularButton
+        icon="plus"
+        onPress={navigator.present(EditNote, {
+          state: { note: emptyNote() },
+          events: { onSaveNote: updatedNotes => notes.set(updatedNotes) },
+        })}
+      />
+    </Positioned>
+  )
+
+  const toast = (
+    <Positioned alignment="bottomCenter" marginBottom={16}>
+      <Toast message={toastMessage} onHide={toastMessage.set('')} />
+    </Positioned>
+  )
+
+  const loading = (
+    <Column width="expand" height="expand" mainAxisAlignment="center" crossAxisAlignment="center">
+      <Spinner />
+    </Column>
+  )
+
   return (
-    <ScreenComponent safeAreaTopBackground="#5F72C0" statusBarColorScheme="dark">
-      <Lifecycle onInit={loadItems} state={[isLoading, notes, searchTerm, doneFilter]}>
+    <ScreenComponent safeAreaTopBackground="#5F72C0" statusBarColorScheme="dark" ignoreSafeArea={['bottom']}>
+      <Lifecycle onInit={loadItems} state={[isLoading, notes, searchTerm, doneFilter, toastMessage]}>
         <If condition={isLoading}>
-          <Then><Text>Loading</Text></Then>
+          <Then>{loading}</Then>
           <Else>
             <Stack height="expand" width="expand" backgroundColor="#F1F3F5">
               <Positioned>
                 {header}
                 {body}
               </Positioned>
-              <Positioned alignment="bottomEnd" margin={28}>
-                <CircularButton
-                  icon="plus"
-                  onPress={navigator.present(EditNote, {
-                    state: { note: emptyNote() },
-                    events: { onSaveNote: updatedNotes => notes.set(updatedNotes) },
-                  })}
-                />
-              </Positioned>
+              {addNoteButton}
+              {toast}
             </Stack>
           </Else>
         </If>

@@ -12,6 +12,8 @@
 		AF22CB1A2996AE62002AE566 /* SelectionGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF22CB192996AE62002AE566 /* SelectionGroup.swift */; };
 		AF22CB1C2996AE99002AE566 /* CircularButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF22CB1B2996AE99002AE566 /* CircularButton.swift */; };
 		AF22CB1F2996E2E6002AE566 /* FormatDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF22CB1E2996E2E6002AE566 /* FormatDate.swift */; };
+		AF6C98D529BF4A1E003C32B2 /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6C98D429BF4A1E003C32B2 /* Toast.swift */; };
+		AF6C98D729BF4BB2003C32B2 /* Spinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6C98D629BF4BB2003C32B2 /* Spinner.swift */; };
 		AFA255AB29943302007349F1 /* To_Do_AppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA255AA29943302007349F1 /* To_Do_AppApp.swift */; };
 		AFA255AD29943302007349F1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA255AC29943302007349F1 /* ContentView.swift */; };
 		AFA255AF29943304007349F1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AFA255AE29943304007349F1 /* Assets.xcassets */; };
@@ -47,6 +49,8 @@
 		AF22CB192996AE62002AE566 /* SelectionGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionGroup.swift; sourceTree = "<group>"; };
 		AF22CB1B2996AE99002AE566 /* CircularButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularButton.swift; sourceTree = "<group>"; };
 		AF22CB1E2996E2E6002AE566 /* FormatDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormatDate.swift; sourceTree = "<group>"; };
+		AF6C98D429BF4A1E003C32B2 /* Toast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
+		AF6C98D629BF4BB2003C32B2 /* Spinner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spinner.swift; sourceTree = "<group>"; };
 		AFA255A729943302007349F1 /* To Do App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "To Do App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AFA255AA29943302007349F1 /* To_Do_AppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = To_Do_AppApp.swift; sourceTree = "<group>"; };
 		AFA255AC29943302007349F1 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -96,6 +100,8 @@
 				AF22CB1B2996AE99002AE566 /* CircularButton.swift */,
 				AFF8B98729B626C8009DEAE4 /* DatePicker.swift */,
 				AFF8B98929B626F6009DEAE4 /* Button.swift */,
+				AF6C98D429BF4A1E003C32B2 /* Toast.swift */,
+				AF6C98D629BF4BB2003C32B2 /* Spinner.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -302,6 +308,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AF6C98D729BF4BB2003C32B2 /* Spinner.swift in Sources */,
 				AFA255AD29943302007349F1 /* ContentView.swift in Sources */,
 				AF22CB1F2996E2E6002AE566 /* FormatDate.swift in Sources */,
 				AF22CB1A2996AE62002AE566 /* SelectionGroup.swift in Sources */,
@@ -309,6 +316,7 @@
 				AFA255AB29943302007349F1 /* To_Do_AppApp.swift in Sources */,
 				AF22CB182996AE52002AE566 /* Icon.swift in Sources */,
 				AF22CB1329958A04002AE566 /* TextInput.swift in Sources */,
+				AF6C98D529BF4A1E003C32B2 /* Toast.swift in Sources */,
 				AFF8B98A29B626F6009DEAE4 /* Button.swift in Sources */,
 				AFF8B98829B626C8009DEAE4 /* DatePicker.swift in Sources */,
 			);

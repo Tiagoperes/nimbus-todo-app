@@ -46,7 +46,6 @@ export const EditNote: Screen<EditNoteScreenRequest> = ({ getViewState, navigato
         <Column marginVertical={10}>
           <TextInput label="Description" value={description} onChange={value => description.set(value)} />
         </Column>
-        <Text>{date}</Text>
         <DatePicker label="Date" value={date} onChange={(newValue) => date.set(newValue)} />
         <Row marginTop={20} width="expand" mainAxisAlignment="center">
           <Column marginEnd={20}>

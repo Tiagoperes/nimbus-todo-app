@@ -11,6 +11,8 @@ let todoAppUI = NimbusSwiftUILibrary("todoapp")
   .addComponent("datePicker", AppDatePicker.self)
   .addComponent("circularButton", CircularButton.self)
   .addComponent("button", AppButton.self)
+  .addComponent("spinner", Spinner.self)
+  .addComponent("toast", Toast.self)
   .addOperation("formatDate", FormatDate.self)
 
 struct ContentView: View {
