@@ -46,7 +46,7 @@ export const ToDoList: Screen = ({ navigator }) => {
   const toastMessage = createState('toastMessage', '')
 
   const loadItems = sendRequest<NoteSection[]>({
-    url: `${todoAPIUrl}/notes`,
+    url: todoAPIUrl,
     headers: { key: todoAPIKey() },
     onSuccess: response => notes.set(response.get('data')),
     onError: response => [
@@ -57,7 +57,7 @@ export const ToDoList: Screen = ({ navigator }) => {
   })
 
   const removeNote = (id: Expression<number>) => sendRequest<NoteSection[]>({
-    url: `${todoAPIUrl}/notes/${id}`,
+    url: `${todoAPIUrl}/${id}`,
     method: 'Delete',
     headers: { key: todoAPIKey() },
     onSuccess: response => notes.set(response.get('data')),
@@ -70,7 +70,7 @@ export const ToDoList: Screen = ({ navigator }) => {
   const toggleDoneStatus = (note: State<Note>) => [
     note.get('isDone').set(not(note.get('isDone'))),
     sendRequest({
-      url: `${todoAPIUrl}/notes`,
+      url: todoAPIUrl,
       headers: { key: todoAPIKey() },
       method: 'Put',
       data: note,

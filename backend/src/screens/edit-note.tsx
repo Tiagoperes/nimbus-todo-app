@@ -24,7 +24,7 @@ export const EditNote: Screen<EditNoteScreenRequest> = ({ getViewState, navigato
   const date = createState('date', note.get('date'))
 
   const save = sendRequest<NoteSection[]>({
-    url: `${todoAPIUrl}/notes`,
+    url: todoAPIUrl,
     method: condition(eq(note.get('id'), emptyNoteId), 'Post', 'Put'),
     headers: { key: todoAPIKey() },
     data: { id: note.get('id'), title, description, date, isDone: note.get('isDone') },
