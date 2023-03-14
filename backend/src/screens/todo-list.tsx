@@ -29,7 +29,7 @@ function shouldRender(note: State<Note>, searchTerm: State<string>, doneFilter: 
 function emptyNote(): Note {
   return {
     id: 0,
-    date: Date.now(),
+    date: new Date().setUTCHours(0, 0, 0, 0),
     title: '',
     description: '',
     isDone: false,
@@ -43,15 +43,15 @@ export const ToDoList: Screen = ({ navigator }) => {
   const notes = createState<NoteSection[]>('notes', [])
 
   const loadItems = sendRequest<NoteSection[]>({
-    url: `${todoAPIUrl}/notes`,
+    url: todoAPIUrl,
     headers: { key: todoAPIKey() },
-    onSuccess: response => notes.set(response.get('data')),
+    onSuccess: response => [notes.set(response.get('data')), log({ message: response.get('data') })],
     onError: response => log({ level: 'error', message: response.get('message') }),
     onFinish: isLoading.set(false),
   })
 
   const removeNote = (id: Expression<number>) => sendRequest<NoteSection[]>({
-    url: `${todoAPIUrl}/notes/${id}`,
+    url: `${todoAPIUrl}/${id}`,
     method: 'Delete',
     headers: { key: todoAPIKey() },
     onSuccess: response => notes.set(response.get('data')),

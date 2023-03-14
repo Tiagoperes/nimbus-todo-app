@@ -21,16 +21,16 @@ export const NoteCard: FC<Props> = ({ value, onShowEditModal, onRemove }) => (
         height={22}
       />
     </Touchable>
-    <Touchable onPress={onShowEditModal}>
-      <Column marginHorizontal={20} width="expand">
+    <Column marginHorizontal={20} width="expand">
+      <Touchable onPress={onShowEditModal}>
         <Text weight="bold" color="#616B76">{value.get('title')}</Text>
         <If condition={not(isEmpty(value.get('description')))}>
           <Then>
             <Column marginTop={8}><Text color="#85919C">{value.get('description')}</Text></Column>
           </Then>
         </If>
-      </Column>
-    </Touchable>
+      </Touchable>
+    </Column>
     <Touchable onPress={onRemove}>
       <Icon name="delete" size={20} color="#F00000" />
     </Touchable>
