@@ -28,7 +28,7 @@ function shouldRender(note: State<Note>, searchTerm: State<string>, doneFilter: 
 function emptyNote(): Note {
   return {
     id: 0,
-    date: Date.now(),
+    date: new Date().setUTCHours(0, 0, 0, 0),
     title: '',
     description: '',
     isDone: false,
